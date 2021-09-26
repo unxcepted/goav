@@ -14,8 +14,6 @@ package avdevice
 import "C"
 import (
 	"unsafe"
-
-	"github.com/unxcepted/goav/avutil"
 )
 
 type (
@@ -58,16 +56,6 @@ func AvdeviceAppToDevControlMessage(s *AvFormatContext, m AvAppToDevMessageType,
 //Send control message from device to application.
 func AvdeviceDevToAppControlMessage(fcxt *AvFormatContext, m AvDevToAppMessageType, da int, d uintptr) int {
 	return int(C.avdevice_dev_to_app_control_message((*C.struct_AVFormatContext)(fcxt), (C.enum_AVDevToAppMessageType)(m), unsafe.Pointer(&da), C.size_t(d)))
-}
-
-//Initialize capabilities probing API based on AvOption API.
-func AvdeviceCapabilitiesCreate(c **AvDeviceCapabilitiesQuery, s *AvFormatContext, d **avutil.Dictionary) int {
-	return int(C.avdevice_capabilities_create((**C.struct_AVDeviceCapabilitiesQuery)(unsafe.Pointer(c)), (*C.struct_AVFormatContext)(s), (**C.struct_AVDictionary)(unsafe.Pointer(d))))
-}
-
-//Free resources created by avdevice_capabilities_create()
-func AvdeviceCapabilitiesFree(c **AvDeviceCapabilitiesQuery, s *AvFormatContext) {
-	C.avdevice_capabilities_free((**C.struct_AVDeviceCapabilitiesQuery)(unsafe.Pointer(c)), (*C.struct_AVFormatContext)(s))
 }
 
 //List devices.
