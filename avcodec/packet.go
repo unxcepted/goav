@@ -9,7 +9,7 @@ import "C"
 import (
 	"unsafe"
 
-	"github.com/asticode/goav/avutil"
+	"github.com/unxcepted/goav/avutil"
 )
 
 func AvPacketAlloc() *Packet {
@@ -50,22 +50,6 @@ func (p *Packet) AvPacketFromByteSlice(buf []byte) int {
 	return p.AvPacketFromData((*uint8)(ptr), len(buf))
 }
 
-//Copy packet, including contents.
-func (p *Packet) AvCopyPacket(r *Packet) int {
-	panic("deprecated")
-	return 0
-	//return int(C.av_copy_packet((*C.struct_AVPacket)(p), (*C.struct_AVPacket)(r)))
-
-}
-
-//Copy packet side data.
-func (p *Packet) AvCopyPacketSideData(r *Packet) int {
-	panic("deprecated")
-	return 0
-	//return int(C.av_copy_packet_side_data((*C.struct_AVPacket)(p), (*C.struct_AVPacket)(r)))
-
-}
-
 //Free a packet.
 func AvPacketFree(p *Packet) {
 	var ptr *C.struct_AVPacket = (*C.struct_AVPacket)(p)
@@ -86,18 +70,6 @@ func (p *Packet) AvPacketShrinkSideData(t AvPacketSideDataType, s int) int {
 func (p *Packet) AvPacketGetSideData(t AvPacketSideDataType, s *int) *uint8 {
 	return (*uint8)(C.av_packet_get_side_data((*C.struct_AVPacket)(p), (C.enum_AVPacketSideDataType)(t), (*C.int)(unsafe.Pointer(s))))
 }
-
-//int 	av_packet_merge_side_data (Packet *pkt)
-// deprecated
-// func (p *Packet) AvPacketMergeSideData() int {
-// 	return int(C.av_packet_merge_side_data((*C.struct_AVPacket)(p)))
-// }
-
-//int 	av_packet_split_side_data (Packet *pkt)
-// deprecated
-// func (p *Packet) AvPacketSplitSideData() int {
-// 	return int(C.av_packet_split_side_data((*C.struct_AVPacket)(p)))
-// }
 
 //Convenience function to free all the side data stored.
 func (p *Packet) AvPacketFreeSideData() {

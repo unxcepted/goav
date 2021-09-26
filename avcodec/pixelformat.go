@@ -9,14 +9,8 @@ import "C"
 import (
 	"unsafe"
 
-	"github.com/asticode/goav/avutil"
+	"github.com/unxcepted/goav/avutil"
 )
-
-//Utility function to access log2_chroma_w log2_chroma_h from the pixel format AvPixFmtDescriptor.
-func AvcodecGetChromaSubSample(pix_fmt avutil.PixelFormat, h, v *int) {
-	panic("deprecated")
-	//C.avcodec_get_chroma_sub_sample((C.enum_AVPixelFormat)(pix_fmt), (*C.int)(unsafe.Pointer(h)), (*C.int)(unsafe.Pointer(v)))
-}
 
 //Return a value representing the fourCC code associated to the pixel format pix_fmt, or 0 if no associated fourCC code can be found.
 func AvcodecPixFmtToCodecTag(pix_fmt avutil.PixelFormat) uint {

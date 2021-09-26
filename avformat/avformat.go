@@ -22,7 +22,7 @@ import "C"
 import (
 	"unsafe"
 
-	"github.com/asticode/goav/avutil"
+	"github.com/unxcepted/goav/avutil"
 )
 
 type (
@@ -81,30 +81,6 @@ func (ctxt *AvIOContext) AvGetPacket(pkt *Packet, s int) int {
 //Read data and append it to the current content of the Packet.
 func (ctxt *AvIOContext) AvAppendPacket(pkt *Packet, s int) int {
 	return int(C.av_append_packet((*C.struct_AVIOContext)(ctxt), (*C.struct_AVPacket)(pkt), C.int(s)))
-}
-
-func (f *InputFormat) AvRegisterInputFormat() {
-	panic("deprecated")
-	//C.av_register_input_format((*C.struct_AVInputFormat)(f))
-}
-
-func (f *OutputFormat) AvRegisterOutputFormat() {
-	panic("deprecated")
-	//C.av_register_output_format((*C.struct_AVOutputFormat)(f))
-}
-
-//If f is NULL, returns the first registered input format, if f is non-NULL, returns the next registered input format after f or NULL if f is the last one.
-func (f *InputFormat) AvIformatNext() *InputFormat {
-	panic("deprecated")
-	return nil
-	//return (*InputFormat)(C.av_iformat_next((*C.struct_AVInputFormat)(f)))
-}
-
-//If f is NULL, returns the first registered output format, if f is non-NULL, returns the next registered output format after f or NULL if f is the last one.
-func (f *OutputFormat) AvOformatNext() *OutputFormat {
-	panic("deprecated")
-	return nil
-	//return (*OutputFormat)(C.av_oformat_next((*C.struct_AVOutputFormat)(f)))
 }
 
 func (f *OutputFormat) Flags() int {

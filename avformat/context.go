@@ -9,74 +9,14 @@ import "C"
 import (
 	"unsafe"
 
-	"github.com/asticode/goav/avcodec"
-	"github.com/asticode/goav/avutil"
+	"github.com/unxcepted/goav/avcodec"
+	"github.com/unxcepted/goav/avutil"
 )
 
 //Close an opened input Context.
 func AvformatCloseInput(ctxt *Context) {
 	var ptr *C.struct_AVFormatContext = (*C.struct_AVFormatContext)(unsafe.Pointer(ctxt))
 	C.avformat_close_input((**C.struct_AVFormatContext)(&ptr))
-}
-
-func (s *Context) AvFormatGetProbeScore() int {
-	panic("deprecated")
-	return 0
-	//return int(C.av_format_get_probe_score((*C.struct_AVFormatContext)(s)))
-}
-
-func (s *Context) AvFormatGetVideoCodec() *AvCodec {
-	panic("deprecated")
-	return nil
-	//return (*AvCodec)(C.av_format_get_video_codec((*C.struct_AVFormatContext)(s)))
-}
-
-func (s *Context) AvFormatSetVideoCodec(c *AvCodec) {
-	panic("deprecated")
-	//C.av_format_set_video_codec((*C.struct_AVFormatContext)(s), (*C.struct_AVCodec)(c))
-}
-
-func (s *Context) AvFormatGetAudioCodec() *AvCodec {
-	panic("deprecated")
-	return nil
-	//return (*AvCodec)(C.av_format_get_audio_codec((*C.struct_AVFormatContext)(s)))
-}
-
-func (s *Context) AvFormatSetAudioCodec(c *AvCodec) {
-	panic("deprecated")
-	//C.av_format_set_audio_codec((*C.struct_AVFormatContext)(s), (*C.struct_AVCodec)(c))
-}
-
-func (s *Context) AvFormatGetSubtitleCodec() *AvCodec {
-	panic("deprecated")
-	return nil
-	//return (*AvCodec)(C.av_format_get_subtitle_codec((*C.struct_AVFormatContext)(s)))
-}
-
-func (s *Context) AvFormatSetSubtitleCodec(c *AvCodec) {
-	panic("deprecated")
-	//C.av_format_set_subtitle_codec((*C.struct_AVFormatContext)(s), (*C.struct_AVCodec)(c))
-}
-
-func (s *Context) AvFormatGetMetadataHeaderPadding() int {
-	panic("deprecated")
-	return 0
-	//return int(C.av_format_get_metadata_header_padding((*C.struct_AVFormatContext)(s)))
-}
-
-func (s *Context) AvFormatSetMetadataHeaderPadding(c int) {
-	panic("deprecated")
-	//C.av_format_set_metadata_header_padding((*C.struct_AVFormatContext)(s), C.int(c))
-}
-
-func (s *Context) AvFormatGetOpaque() {
-	panic("deprecated")
-	//C.av_format_get_opaque((*C.struct_AVFormatContext)(s))
-}
-
-func (s *Context) AvFormatSetOpaque(o int) {
-	panic("deprecated")
-	//C.av_format_set_opaque((*C.struct_AVFormatContext)(s), unsafe.Pointer(&o))
 }
 
 //This function will cause global side data to be injected in the next packet of each stream as well as after any subsequent seek.

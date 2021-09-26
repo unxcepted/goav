@@ -9,63 +9,8 @@ import "C"
 import (
 	"unsafe"
 
-	"github.com/asticode/goav/avutil"
+	"github.com/unxcepted/goav/avutil"
 )
-
-func (ctxt *Context) AvCodecGetPktTimebase() Rational {
-	panic("deprecated")
-	return Rational{}
-	//return (Rational)(C.av_codec_get_pkt_timebase((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt))))
-}
-
-func (ctxt *Context) AvCodecSetPktTimebase(r Rational) {
-	panic("deprecated")
-	//C.av_codec_set_pkt_timebase((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (C.struct_AVRational)(r))
-}
-
-func (ctxt *Context) AvCodecGetCodecDescriptor() *Descriptor {
-	panic("deprecated")
-	return nil
-	//return (*Descriptor)(C.av_codec_get_codec_descriptor((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt))))
-}
-
-func (ctxt *Context) AvCodecSetCodecDescriptor(d *Descriptor) {
-	panic("deprecated")
-	//C.av_codec_set_codec_descriptor((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (*C.struct_AVCodecDescriptor)(d))
-}
-
-func (ctxt *Context) AvCodecGetLowres() int {
-	panic("deprecated")
-	return 0
-	//return int(C.av_codec_get_lowres((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt))))
-}
-
-func (ctxt *Context) AvCodecSetLowres(i int) {
-	panic("deprecated")
-	//C.av_codec_set_lowres((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), C.int(i))
-}
-
-func (ctxt *Context) AvCodecGetSeekPreroll() int {
-	panic("deprecated")
-	return 0
-	//return int(C.av_codec_get_seek_preroll((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt))))
-}
-
-func (ctxt *Context) AvCodecSetSeekPreroll(i int) {
-	panic("deprecated")
-	//C.av_codec_set_seek_preroll((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), C.int(i))
-}
-
-func (ctxt *Context) AvCodecGetChromaIntraMatrix() *uint16 {
-	panic("deprecated")
-	return nil
-	//return (*uint16)(C.av_codec_get_chroma_intra_matrix((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt))))
-}
-
-func (ctxt *Context) AvCodecSetChromaIntraMatrix(t *uint16) {
-	panic("deprecated")
-	//C.av_codec_set_chroma_intra_matrix((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (*C.uint16_t)(t))
-}
 
 //Free the codec context and everything associated with it and write NULL to the provided pointer.
 func AvcodecFreeContext(ctxt *Context) {
@@ -77,11 +22,6 @@ func AvcodecFreeContext(ctxt *Context) {
 func (ctxt *Context) AvcodecGetContextDefaults3(c *Codec) int {
 	return int(C.avcodec_get_context_defaults3((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (*C.struct_AVCodec)(c)))
 }
-
-//Copy the settings of the source Context into the destination Context.
-// func (ctxt *Context) AvcodecCopyContext(ctxt2 *Context) int {
-// 	return int(C.avcodec_copy_context((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (*C.struct_AVCodecContext)(unsafe.Pointer(ctxt2))))
-// }
 
 //Initialize the Context to use the given Codec
 func (ctxt *Context) AvcodecOpen2(c *Codec, d **avutil.Dictionary) int {
@@ -108,16 +48,6 @@ func (ctxt *Context) AvcodecAlignDimensions2(w, h *int, l int) {
 	C.avcodec_align_dimensions2((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (*C.int)(unsafe.Pointer(w)), (*C.int)(unsafe.Pointer(h)), (*C.int)(unsafe.Pointer(&l)))
 }
 
-//Decode the audio frame of size avpkt->size from avpkt->data into frame.
-// func (ctxt *Context) AvcodecDecodeAudio4(f *Frame, g *int, a *Packet) int {
-// 	return int(C.avcodec_decode_audio4((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (*C.struct_AVFrame)(f), (*C.int)(unsafe.Pointer(g)), (*C.struct_AVPacket)(a)))
-// }
-
-//Decode the video frame of size avpkt->size from avpkt->data into picture.
-// func (ctxt *Context) AvcodecDecodeVideo2(p *Frame, g *int, a *Packet) int {
-// 	return int(C.avcodec_decode_video2((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (*C.struct_AVFrame)(p), (*C.int)(unsafe.Pointer(g)), (*C.struct_AVPacket)(a)))
-// }
-
 func (ctxt *Context) ReceivePacket(a *Packet) int {
 	return AvcodecReceivePacket(ctxt, a)
 }
@@ -142,16 +72,6 @@ func (ctxt *Context) SendFrame(f *avutil.Frame) int {
 func (ctxt *Context) AvcodecDecodeSubtitle2(s *AvSubtitle, g *int, a *Packet) int {
 	return int(C.avcodec_decode_subtitle2((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (*C.struct_AVSubtitle)(s), (*C.int)(unsafe.Pointer(g)), (*C.struct_AVPacket)(a)))
 }
-
-//Encode a frame of audio.
-// func (ctxt *Context) AvcodecEncodeAudio2(p *Packet, f *Frame, gp *int) int {
-// 	return int(C.avcodec_encode_audio2((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (*C.struct_AVPacket)(p), (*C.struct_AVFrame)(f), (*C.int)(unsafe.Pointer(gp))))
-// }
-
-//Encode a frame of video
-// func (ctxt *Context) AvcodecEncodeVideo2(p *Packet, f *Frame, gp *int) int {
-// 	return int(C.avcodec_encode_video2((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (*C.struct_AVPacket)(p), (*C.struct_AVFrame)(f), (*C.int)(unsafe.Pointer(gp))))
-// }
 
 func (ctxt *Context) AvcodecEncodeSubtitle(b *uint8, bs int, s *AvSubtitle) int {
 	return int(C.avcodec_encode_subtitle((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (*C.uint8_t)(b), C.int(bs), (*C.struct_AVSubtitle)(s)))
@@ -190,15 +110,4 @@ func AvParserInit(c int) *ParserContext {
 
 func AvParserClose(ctxtp *ParserContext) {
 	C.av_parser_close((*C.struct_AVCodecParserContext)(ctxtp))
-}
-
-func (p *Parser) AvParserNext() *Parser {
-	panic("deprecated")
-	return nil
-	//return (*Parser)(C.av_parser_next((*C.struct_AVCodecParser)(p)))
-}
-
-func (p *Parser) AvRegisterCodecParser() {
-	panic("deprecated")
-	//C.av_register_codec_parser((*C.struct_AVCodecParser)(p))
 }

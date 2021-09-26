@@ -11,8 +11,8 @@ package avfilter
 */
 import "C"
 import (
+	"github.com/unxcepted/goav/avutil"
 	"unsafe"
-	"github.com/asticode/goav/avutil"
 )
 
 const (

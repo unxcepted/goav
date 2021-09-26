@@ -14,7 +14,7 @@ import "C"
 import (
 	"unsafe"
 
-	"github.com/asticode/goav/avutil"
+	"github.com/unxcepted/goav/avutil"
 )
 
 type (
@@ -72,19 +72,6 @@ func AvfilterLinkFree(l **Link) {
 	C.avfilter_link_free((**C.struct_AVFilterLink)(unsafe.Pointer(l)))
 }
 
-//Get the number of channels of a link.
-func AvfilterLinkGetChannels(l *Link) int {
-	panic("deprecated")
-	return 0
-	//return int(C.avfilter_link_get_channels((*C.struct_AVFilterLink)(l)))
-}
-
-//Set the closed field of a link.
-// deprecated
-// func AvfilterLinkSetClosed(l *Link, c int) {
-// 	C.avfilter_link_set_closed((*C.struct_AVFilterLink)(l), C.int(c))
-// }
-
 //Negotiate the media format, dimensions, etc of all inputs to a filter.
 func AvfilterConfigLinks(f *Context) int {
 	return int(C.avfilter_config_links((*C.struct_AVFilterContext)(f)))
@@ -99,12 +86,6 @@ func AvfilterProcessCommand(f *Context, cmd, arg, res string, l, fl int) int {
 	cr := C.CString(res)
 	defer C.free(unsafe.Pointer(cr))
 	return int(C.avfilter_process_command((*C.struct_AVFilterContext)(f), cc, ca, cr, C.int(l), C.int(fl)))
-}
-
-//Initialize the filter system.
-func AvfilterRegisterAll() {
-	panic("deprecated")
-	//C.avfilter_register_all()
 }
 
 //Initialize a filter with the supplied parameters.

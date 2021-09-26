@@ -18,24 +18,6 @@ type (
 	AvFrameSideDataType C.enum_AVFrameSideDataType
 )
 
-func AvFrameGetBestEffortTimestamp(f *Frame) int64 {
-	panic("deprecated")
-	return 0
-	//return int64(C.av_frame_get_best_effort_timestamp((*C.struct_AVFrame)(unsafe.Pointer(f))))
-}
-
-func AvFrameSetQpTable(f *Frame, b *AvBufferRef, s, q int) int {
-	panic("deprecated")
-	return 0
-	//return int(C.av_frame_set_qp_table((*C.struct_AVFrame)(unsafe.Pointer(f)), (*C.struct_AVBufferRef)(unsafe.Pointer(b)), C.int(s), C.int(q)))
-}
-
-func AvFrameGetQpTable(f *Frame, s, t *int) int8 {
-	panic("deprecated")
-	return 0
-	//return int8(*C.av_frame_get_qp_table((*C.struct_AVFrame)(unsafe.Pointer(f)), (*C.int)(unsafe.Pointer(s)), (*C.int)(unsafe.Pointer(t))))
-}
-
 //Allocate an Frame and set its fields to default values.
 func AvFrameAlloc() *Frame {
 	return (*Frame)(unsafe.Pointer(C.av_frame_alloc()))
@@ -101,18 +83,3 @@ func AvFrameNewSideData(f *Frame, d AvFrameSideDataType, s int) *AvFrameSideData
 func AvFrameGetSideData(f *Frame, t AvFrameSideDataType) *AvFrameSideData {
 	return (*AvFrameSideData)(unsafe.Pointer(C.av_frame_get_side_data((*C.struct_AVFrame)(unsafe.Pointer(f)), (C.enum_AVFrameSideDataType)(t))))
 }
-
-// //static int get_video_buffer (Frame *frame, int align)
-// func GetVideoBuffer(f *Frame, a int) int {
-// 	return int(C.get_video_buffer(f, C.int(a)))
-// }
-
-// //static int get_audio_buffer (Frame *frame, int align)
-// func GetAudioBuffer(f *Frame, a int) int {
-// 	return C.get_audio_buffer(f, C.int(a))
-// }
-
-// //static void get_frame_defaults (Frame *frame)
-// func GetFrameDefaults(f *Frame) {
-// 	C.get_frame_defaults(*C.struct_AVFrame(f))
-// }
