@@ -524,6 +524,11 @@ func (ctxt *Context) ThreadType() int {
 	return int(ctxt.thread_type)
 }
 
+// Look for FF_THREAD_* constants
+func (ctxt *Context) SetThreadType(threadType int) {
+	ctxt.thread_type = C.int(threadType)
+}
+
 func (ctxt *Context) TicksPerFrame() int {
 	return int(ctxt.ticks_per_frame)
 }

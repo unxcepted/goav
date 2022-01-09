@@ -108,6 +108,11 @@ const (
 	AV_PKT_DATA_A53_CC                     = C.AV_PKT_DATA_A53_CC
 )
 
+const (
+	FF_THREAD_FRAME = C.FF_THREAD_FRAME
+	FF_THREAD_SLICE = C.FF_THREAD_SLICE
+)
+
 func (c *Codec) AvCodecGetMaxLowres() int {
 	panic("deprecated")
 	return 0
