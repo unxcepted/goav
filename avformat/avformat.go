@@ -193,10 +193,10 @@ func AvIOClosep(pb **AvIOContext) int {
 }
 
 //Open an input stream and read the header.
-func AvformatOpenInput(ps **Context, fi string, fmt *InputFormat, d **avutil.Dictionary) int {
+func AvformatOpenInput(ps *Context, fi string, fmt *InputFormat, d **avutil.Dictionary) int {
 	cfi := C.CString(fi)
 	defer C.free(unsafe.Pointer(cfi))
-	return int(C.avformat_open_input((**C.struct_AVFormatContext)(unsafe.Pointer(ps)), cfi, (*C.struct_AVInputFormat)(fmt), (**C.struct_AVDictionary)(unsafe.Pointer(d))))
+	return int(C.avformat_open_input((**C.struct_AVFormatContext)(unsafe.Pointer(&ps)), cfi, (*C.struct_AVInputFormat)(fmt), (**C.struct_AVDictionary)(unsafe.Pointer(d))))
 }
 
 //Return the output format in the list of registered output formats which best matches the provided parameters, or return NULL if there is no match.
