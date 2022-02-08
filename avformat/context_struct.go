@@ -43,9 +43,9 @@ func (ctxt *Context) Metadata() *avutil.Dictionary {
 	return (*avutil.Dictionary)(unsafe.Pointer(ctxt.metadata))
 }
 
-func (ctxt *Context) Internal() *AvFormatInternal {
+/*func (ctxt *Context) Internal() *AvFormatInternal {
 	return (*AvFormatInternal)(unsafe.Pointer(ctxt.internal))
-}
+}*/
 
 func (ctxt *Context) Pb() *AvIOContext {
 	return (*AvIOContext)(unsafe.Pointer(ctxt.pb))
@@ -75,9 +75,9 @@ func (ctxt *Context) Streams() []*Stream {
 	return arr[:ctxt.NbStreams()]
 }
 
-func (ctxt *Context) Filename() string {
+/*func (ctxt *Context) Filename() string {
 	return C.GoString((*C.char)(unsafe.Pointer(&ctxt.filename[0])))
-}
+}*/
 
 // func (ctxt *Context) CodecWhitelist() string {
 // 	return C.GoString(ctxt.codec_whitelist)

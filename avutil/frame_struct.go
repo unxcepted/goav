@@ -76,9 +76,9 @@ func (f *Frame) SetPts(i int64) {
 	f.pts = C.int64_t(i)
 }
 
-func (f *Frame) PktPts() int64 {
+/*func (f *Frame) PktPts() int64 {
 	return int64(f.pkt_pts)
-}
+}*/
 
 func (f *Frame) PktDts() int64 {
 	return int64(f.pkt_dts)
