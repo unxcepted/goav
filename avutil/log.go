@@ -3,6 +3,7 @@ package avutil
 //#cgo pkg-config: libavutil
 //#include <libavutil/log.h>
 /*
+#include <stdio.h>
 extern void goAvLogCustomCallback(int level, char* msg, char* parent);
 
 static inline void avLogCustomCallback(void *avcl, int level, const char *fmt, va_list vl)

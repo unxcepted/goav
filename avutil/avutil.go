@@ -87,58 +87,44 @@ const (
 	AV_PICTURE_TYPE_P    = C.AV_PICTURE_TYPE_P
 )
 
-//Return the LIBAvUTIL_VERSION_INT constant.
+// Return the LIBAvUTIL_VERSION_INT constant.
 func AvutilVersion() uint {
 	return uint(C.avutil_version())
 }
 
-//Return the libavutil build-time configuration.
+// Return the libavutil build-time configuration.
 func AvutilConfiguration() string {
 	return C.GoString(C.avutil_configuration())
 }
 
-//Return the libavutil license.
+// Return the libavutil license.
 func AvutilLicense() string {
 	return C.GoString(C.avutil_license())
 }
 
-//Return a string describing the media_type enum, NULL if media_type is unknown.
+// Return a string describing the media_type enum, NULL if media_type is unknown.
 func AvGetMediaTypeString(mt MediaType) string {
 	return C.GoString(C.av_get_media_type_string((C.enum_AVMediaType)(mt)))
 }
 
-//Return a single letter to describe the given picture type pict_type.
+// Return a single letter to describe the given picture type pict_type.
 func AvGetPictureTypeChar(pt AvPictureType) rune {
 	return rune(C.av_get_picture_type_char((C.enum_AVPictureType)(pt)))
 }
 
-//Return x default pointer in case p is NULL.
+// Return x default pointer in case p is NULL.
 func AvXIfNull(p, x int) {
 	C.av_x_if_null(unsafe.Pointer(&p), unsafe.Pointer(&x))
 }
 
-//Compute the length of an integer list.
+// Compute the length of an integer list.
 func AvIntListLengthForSize(e uint, l int, t uint64) uint {
 	return uint(C.av_int_list_length_for_size(C.uint(e), unsafe.Pointer(&l), (C.uint64_t)(t)))
 }
 
-//Open a file using a UTF-8 filename.
-func AvFopenUtf8(p, m string) *File {
-	cp := C.CString(p)
-	defer C.free(unsafe.Pointer(cp))
-	cm := C.CString(m)
-	defer C.free(unsafe.Pointer(cm))
-	f := C.av_fopen_utf8(cp, cm)
-	return (*File)(f)
-}
-
-//Return the fractional representation of the internal time base.
+// Return the fractional representation of the internal time base.
 func AvGetTimeBaseQ() Rational {
 	return (Rational)(C.av_get_time_base_q())
-}
-
-func AvGetChannelLayoutNbChannels(channelLayout uint64) int {
-	return int(C.av_get_channel_layout_nb_channels(C.uint64_t(channelLayout)))
 }
 
 func AvGetPixFmtName(pixFmt PixelFormat) string {
@@ -147,17 +133,6 @@ func AvGetPixFmtName(pixFmt PixelFormat) string {
 		return fmt.Sprintf("unknown pixel format with value %d", pixFmt)
 	}
 	return C.GoString(s)
-}
-
-func AvGetChannelLayoutString(nbChannels int, channelLayout uint64) string {
-	bufSize := C.size_t(MAX_CHANNEL_LAYOUT_STR_LEN)
-	buf := (*C.char)(C.malloc(bufSize))
-	if buf == nil {
-		return fmt.Sprintf("unknown channel layout with code %d", channelLayout)
-	}
-	defer C.free(unsafe.Pointer(buf))
-	C.av_get_channel_layout_string(buf, C.int(bufSize), C.int(nbChannels), C.uint64_t(channelLayout))
-	return C.GoString(buf)
 }
 
 func AvStrerr(errcode int) string {
