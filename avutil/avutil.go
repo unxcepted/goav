@@ -10,6 +10,7 @@ package avutil
 //#cgo pkg-config: libavutil
 //#include <libavutil/avutil.h>
 //#include <libavutil/channel_layout.h>
+//#include <libavutil/opt.h>
 //#include <libavutil/pixdesc.h>
 //#include <stdlib.h>
 //#include <errno.h>
@@ -59,6 +60,10 @@ func MediaTypeFromString(i string) MediaType {
 		return -1
 	}
 }
+
+const (
+	AV_OPT_SEARCH_CHILDREN = C.AV_OPT_SEARCH_CHILDREN
+)
 
 const (
 	AV_CH_FRONT_LEFT    = 0x1

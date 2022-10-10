@@ -96,6 +96,10 @@ func (f *Frame) SetSampleRate(r int) {
 	f.sample_rate = C.int(r)
 }
 
+func (f *Frame) Metadata() *Dictionary {
+	return (*Dictionary)(unsafe.Pointer(&f.metadata))
+}
+
 // TODO Create getters and setters
 // https://ffmpeg.org/doxygen/4.0/structAVFrame.html
 /*
