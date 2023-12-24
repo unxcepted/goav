@@ -116,10 +116,6 @@ func (ctxt *Context) Debug() int {
 	return int(ctxt.debug)
 }
 
-func (ctxt *Context) DebugMv() int {
-	return int(ctxt.debug_mv)
-}
-
 func (ctxt *Context) Delay() int {
 	return int(ctxt.delay)
 }
@@ -514,10 +510,6 @@ func (ctxt *Context) SetThreadCount(threadCount int) {
 
 func (ctxt *Context) SetBitRate(bitRate int64) {
 	ctxt.bit_rate = C.int64_t(bitRate)
-}
-
-func (ctxt *Context) ThreadSafeCallbacks() int {
-	return int(ctxt.thread_safe_callbacks)
 }
 
 func (ctxt *Context) ThreadType() int {
